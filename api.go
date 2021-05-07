@@ -68,6 +68,7 @@ func (api *Api) SendSms(sms *Sms) (ServiceAnswer, error) {
 	}
 
 	if resp.StatusCode != http.StatusCreated {
+		fmt.Print(body)
 		return answer, errors.New(fmt.Sprintf("Error sending SMS - Status code: %d", resp.StatusCode))
 	}
 
