@@ -32,7 +32,7 @@ func (api *Api) getEndpointUrl(service string) (string, error) {
 	case "SMS":
 		return fmt.Sprintf("%s/%s", EndpointBaseUrl, "messages"), nil
 	}
-	return "", errors.New("No valid service given:" + service)
+	return "", errors.New(fmt.Sprintf("No valid service given: %s", service))
 }
 
 func (api *Api) SendSms(sms *Sms) (ServiceAnswer, error) {
@@ -68,7 +68,7 @@ func (api *Api) SendSms(sms *Sms) (ServiceAnswer, error) {
 	}
 
 	if resp.StatusCode != http.StatusCreated {
-		return answer, errors.New("Error sending SMS:" + string(resp.StatusCode))
+		return answer, errors.New(fmt.Sprintf("Error sending SMS - Status code: %d", resp.StatusCode))
 	}
 
 	err = json.Unmarshal(body, &answer)
